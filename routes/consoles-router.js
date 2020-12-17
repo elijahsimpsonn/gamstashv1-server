@@ -39,11 +39,13 @@ consolesRouter
     .route('/:id')
     .get(async (req, res) => {
         try {
-            const results = await db.query("SELECT * FROM consoles WHERE id = $1", [req.params.id])
+            const consoles = await db.query("SELECT * FROM consoles WHERE id = $1", [req.params.id])
+            const games = await db.query("SELECT * FROM games WHERE console_id = $1", [req.params.id])
             res.status(200).json({
                 status: "success",
                 data: {
-                  consoles: results.rows[0],
+                  consoles: consoles.rows[0],
+                  games: games.rows
                 },
               });
         } catch(err) {
