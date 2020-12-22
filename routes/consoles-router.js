@@ -76,9 +76,8 @@ consolesRouter
   })
   .delete(async (req, res) => {
     try {
-      const results = await db.query("DELETE FROM consoles WHERE id = $1", [
-        req.params.id,
-      ]);
+      await db.query("DELETE FROM games WHERE console_id = $1", [req.params.id])  
+      await db.query("DELETE FROM consoles WHERE id = $1", [req.params.id,]);
       res.status(204).json({
         status: "success",
       });
