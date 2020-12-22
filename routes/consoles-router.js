@@ -89,7 +89,7 @@ consolesRouter
 consolesRouter.route("/:id/addGame").post(async (req, res) => {
   try {
     const newGame = await db.query(
-      `INSERT INTO games (console_id, title, condition) VALUES ($1, $2, $3) RETURNING *;`,
+      "INSERT INTO games (console_id, title, condition) VALUES ($1, $2, $3) RETURNING *",
       [req.params.id, req.body.title, req.body.condition]
     );
     res.status(201).json({
