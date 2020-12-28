@@ -1,13 +1,12 @@
 const express = require("express");
 const consolesRouter = express.Router();
-const db = require("../db");
-// "SELECT * FROM consoles"
+const db = require("../db/config");
+
 consolesRouter
   .route("/")
   .get(async (req, res) => {
     try {
       const results = await db.query("SELECT * FROM consoles;");
-      console.log("results", results)
       res.status(200).json({
         status: "success",
         results: results.rows.length,
@@ -76,7 +75,7 @@ consolesRouter
   })
   .delete(async (req, res) => {
     try {
-      await db.query("DELETE FROM games WHERE console_id = $1", [req.params.id])  
+      await db.query("DELETE FROM games WHERE console_id = $1", [req.params.id])
       await db.query("DELETE FROM consoles WHERE id = $1", [req.params.id,]);
       res.status(204).json({
         status: "success",
@@ -105,4 +104,3 @@ consolesRouter.route("/:id/addGame").post(async (req, res) => {
 
 module.exports = consolesRouter;
 
-// select * from console left join (select console_id, count(*)) as console_game_total from games group by console_id console on console.id = games.console_id;
