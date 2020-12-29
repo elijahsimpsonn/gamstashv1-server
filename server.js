@@ -1,31 +1,18 @@
-require("dotenv").config()
-const express = require("express")
-const morgan = require("morgan")
-const cors = require("cors")
-const consolesRouter = require('./routes/consoles-router')
-const gamesRouter = require('./routes/games-router')
-const helmet = require('helmet')
+require('dotenv').config()
 const knex = require('knex')
-const { DATABASE_URL } = require('./db/config')
+const app = require('./app')
+const { PORT, DATABASE_URL } = require('./config')
 
 const db = knex({
     client: 'pg',
     connection: DATABASE_URL
 })
 
-const app = express()
 app.set('db', db)
-app.use(morgan("dev"))
-app.use(cors())
-app.use(helmet())
-app.use(express.json())
 
-app.use('/api/v1/consoles', consolesRouter)
-app.use('/api/v1/games', gamesRouter)
-
-const port = process.env.PORT || 8000
-app.listen(port, () => {
-    console.log(`Server is live on port ${port}`)
+app.listen(PORT, () => {
+    console.log(`Server listening at http://localhost:${PORT}`)
 })
 
-module.exports = app
+
+
