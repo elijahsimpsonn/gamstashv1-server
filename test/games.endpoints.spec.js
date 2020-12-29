@@ -1,7 +1,6 @@
-const { expect } = require("chai");
 const knex = require("knex");
 const supertest = require("supertest");
-const app = require('../app');
+const app = require("../app");
 const { makeGamesArray } = require("./games.fixtures");
 const { makeConsolesArray } = require("./consoles.fixtures");
 
@@ -65,7 +64,9 @@ describe("Games Endpoints", function () {
         return supertest(app)
           .delete(`/api/v1/games/${idToRemove}`)
           .expect(204)
-          .then((res) => supertest(app).get("/api/v1/games").expect(expectedGames));
+          .then((res) =>
+            supertest(app).get("/api/v1/games").expect(expectedGames)
+          );
       });
     });
   });
@@ -99,7 +100,9 @@ describe("Games Endpoints", function () {
           .send(updateGame)
           .expect(204)
           .then((res) =>
-            supertest(app).get(`/api/v1/games/${idToUpdate}`).expect(expectedGame)
+            supertest(app)
+              .get(`/api/v1/games/${idToUpdate}`)
+              .expect(expectedGame)
           );
       });
     });
