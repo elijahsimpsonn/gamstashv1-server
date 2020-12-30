@@ -1,21 +1,19 @@
 {
-  "name": "server",
+  "name": "gamestash",
   "version": "1.0.0",
-  "description": "",
+  "description": "gamstash server",
   "main": "server.js",
   "scripts": {
     "test": "mocha --require test/setup.js",
     "dev": "nodemon src/server.js",
     "migrate": "postgrator --config postgrator-config.js",
     "migrate:test": "env NODE_ENV=test npm run migrate",
-    "migrate:production": "heroku run npm run migrate",
     "start": "nodemon server.js",
     "predeploy": "npm audit",
-    "deploy": "git push heroku master",
-    "postdeploy": "npm run migrate:production"
+    "deploy": "git push heroku master"
   },
   "keywords": [],
-  "author": "",
+  "author": "elijah simpson",
   "license": "ISC",
   "dependencies": {
     "chai": "^4.2.0",
@@ -35,5 +33,16 @@
   },
   "devDependencies": {
     "postgrator-cli": "^3.2.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elijahsimpsonn/gamstashv1-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/elijahsimpsonn/gamstashv1-server/issues"
+  },
+  "homepage": "https://github.com/elijahsimpsonn/gamstashv1-server#readme"
 }
